@@ -1,61 +1,58 @@
-import * as vscode from 'vscode';
-// import { NodeBase } from './models/nodeBase';
-// import { RootNode } from './models/rootNode';
-// import { Provider } from '../typings/provider';
+import {Event, EventEmitter, TreeDataProvider, TreeItem, TreeItemCollapsibleState, Uri} from 'vscode';
+import {IProvider} from '../typings/provider'
 
-export class ReviewerExplorer implements vscode.TreeDataProvider<Provider>{
-
-  private _providersNodes: Provider[];
-
-  private _onDidChangeTreeData: vscode.EventEmitter<Provider | undefined> = new vscode.EventEmitter<Provider | undefined>();
-	readonly onDidChangeTreeData: vscode.Event<Provider | undefined> = this._onDidChangeTreeData.event;
-
-
-  constructor(providers: Provider[] = []) {
-    // this._providersNodes = providers.map(provider => new RootNode(provider.label, provider.contextValue, this._onDidChangeTreeData));
-    this._providersNodes = providers;
-  }
-
-  refresh(): void {
-		this._onDidChangeTreeData.fire();
-  }
-
-  getTreeItem(element: Provider): vscode.TreeItem {
-		return element;
-	}
-
-  getChildren(element?: Provider): Thenable<Provider[]> {
-    return new Promise(resolve => {
-      // if (!element) {
-      //   resolve(this.getRootNodes());
-      //   return;
-      // }
-        resolve([]);
-    })
-  }
-
-  // private getRootNodes(): Provider[] {
-  //   return this._providersNodes;
-  // }
-
+interface IProviderNode {
+	name: string;
+	pr: string[];
 }
 
-
-class Provider extends vscode.TreeItem {
+class ProviderNode extends TreeItem {
+  private _resourse: Uri;
+  public readonly contextValue: string;
 
 	constructor(
-		public readonly label: string,
-		public readonly collapsibleState: vscode.TreeItemCollapsibleState,
-		public readonly command?: vscode.Command
+    label: string,
+    collapsibleState: TreeItemCollapsibleState = TreeItemCollapsibleState.Collapsed,
+    contextValue?: string
 	) {
-		super(label, collapsibleState);
+    super(label, collapsibleState);
+    this.contextValue = contextValue;
 	}
+}
 
-	// iconPath = {
-	// 	light: path.join(__filename, '..', '..', '..', 'resources', 'light', 'dependency.svg'),
-	// 	dark: path.join(__filename, '..', '..', '..', 'resources', 'dark', 'dependency.svg')
-	// };
+export class ReviewerExplorer implements TreeDataProvider<TreeItem>{
 
-	contextValue = 'provider';
+  private _providers: IProvider[];
+  private _roots: TreeItem[];
 
+  private _onDidChangeTreeData: EventEmitter<any> = new EventEmitter<any>();
+	readonly onDidChangeTreeData: Event<any> = this._onDidChangeTreeData.event;
+
+
+  constructor(providers: IProvider[]) {
+    this._providers = providers;
+    this._roots = providers.map(provider => new ProviderNode(
+      provider.label,
+      TreeItemCollapsibleState.Collapsed,
+      provider.contextValue))
+  }
+
+  public getTreeItem(element: TreeItem): TreeItem {
+    return element;
+  }
+
+  public getChildren(element?: TreeItem): TreeItem[] | Thenable<TreeItem[]> {
+		if (!element) {
+      // return [{
+      //   label: 'No item 1',
+      //   collapsibleState: TreeItemCollapsibleState.None
+      // }]
+			return this._roots;
+    }
+
+    return [{
+      label: 'No item',
+      collapsibleState: TreeItemCollapsibleState.None
+    }]
+	}
 }

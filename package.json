@@ -11,10 +11,19 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:extension.sayHello",
+        "onView:reviewerExplorer"
     ],
     "main": "./out/extension",
     "contributes": {
+        "views": {
+            "explorer": [
+                {
+                    "id": "reviewerExplorer",
+                    "name": "Lustful Explorer"
+                }
+            ]
+        },
         "commands": [
             {
                 "command": "extension.sayHello",

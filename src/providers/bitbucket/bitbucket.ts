@@ -1,6 +1,6 @@
-import {RootProvider} from '../rootProvider'
+import {BaseProvider} from '../baseProvider';
 
-export class BitbucketProvider extends RootProvider {
+export class BitBucketProvider extends BaseProvider {
   constructor() {
     super('BitBucket', 'BitBucket');
   }
