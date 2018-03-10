@@ -27,7 +27,7 @@
         "commands": [
             {
                 "command": "extension.sayHello",
-                "title": "Hello World"
+                "title": "Lustful reviewer"
             }
         ]
     },
@@ -41,7 +41,10 @@
     "devDependencies": {
         "@types/mocha": "^2.2.42",
         "@types/node": "^7.0.43",
+        "prettier": "1.11.1",
         "tslint-config-prettier": "^1.9.0",
+        "tslint-config-standard": "^7.0.0",
+        "tslint-eslint-rules": "^5.1.0",
         "typescript": "^2.6.1",
         "vscode": "^1.1.6"
     }
