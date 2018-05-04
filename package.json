@@ -1,51 +1,65 @@
 {
-    "name": "lustful-reviewer",
-    "displayName": "Lustful Reviewer",
-    "description": "Allows to review code from some providers",
-    "version": "0.0.1",
-    "publisher": "ilabacheuski",
-    "engines": {
-        "vscode": "^1.19.0"
+  "name": "lustful-reviewer",
+  "displayName": "Lustful Reviewer",
+  "description": "Allows to review code from some providers",
+  "version": "0.0.1",
+  "publisher": "ilabacheuski",
+  "engines": {
+    "vscode": "^1.23.0"
+  },
+  "categories": ["SCM Providers", "Other"],
+  "activationEvents": ["onCommand:extension.sayHello", "onView:reviewerExplorer"],
+  "main": "./out/extension",
+  "contributes": {
+    "configuration": {
+      "title": "Lustful Reviewer configuration",
+      "properties": {
+        "tokenBitbucket": {
+          "type": "string",
+          "default": "",
+          "description": "Token for bitbucket"
+        }
+      }
     },
-    "categories": [
-        "Other"
+    "commands": [
+      {
+        "category": "Lustful Reviewer",
+        "command": "lustfulReviewer.addBitbucketToken",
+        "title": "Add Bitbucket token to configuration"
+      },
+      {
+        "command": "extension.sayHello",
+        "title": "Lustful reviewer"
+      },
+      {
+        "command": "lustfulReviewer.addProvider",
+        "title": "Add Provider"
+      }
     ],
-    "activationEvents": [
-        "onCommand:extension.sayHello",
-        "onView:reviewerExplorer"
-    ],
-    "main": "./out/extension",
-    "contributes": {
-        "views": {
-            "explorer": [
-                {
-                    "id": "reviewerExplorer",
-                    "name": "Lustful Explorer"
-                }
-            ]
-        },
-        "commands": [
-            {
-                "command": "extension.sayHello",
-                "title": "Lustful reviewer"
-            }
-        ]
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "@types/mocha": "^2.2.42",
-        "@types/node": "^7.0.43",
-        "prettier": "1.11.1",
-        "tslint-config-prettier": "^1.9.0",
-        "tslint-config-standard": "^7.0.0",
-        "tslint-eslint-rules": "^5.1.0",
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6"
+    "views": {
+      "explorer": [
+        {
+          "id": "reviewerExplorer",
+          "name": "Lustful Explorer"
+        }
+      ]
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "@types/node": "^10.0.3",
+    "prettier": "^1.12.1",
+    "tslint-config-prettier": "^1.12.0",
+    "tslint-config-standard": "^7.0.0",
+    "tslint-eslint-rules": "^5.1.0",
+    "typescript": "^2.8.3",
+    "vscode": "^1.1.17"
+  },
+  "dependencies": {}
 }
